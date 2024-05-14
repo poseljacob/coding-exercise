@@ -8,15 +8,16 @@ datasource db {
 }
 
 model Item {
-  id             Int        @id @default(autoincrement())
-  parent_item    ParentItem @relation(fields: [parent_item_id], references: [id])
-  parent_item_id Int
-  name           String
-  sku            String
-  price          Decimal
-  quantity       Int
-  created_at     DateTime?
-  updated_at     DateTime?
+  id                     Int                      @id @default(autoincrement())
+  parent_item            ParentItem               @relation(fields: [parent_item_id], references: [id])
+  parent_item_id         Int
+  name                   String
+  sku                    String
+  price                  Decimal
+  quantity               Int
+  created_at             DateTime?
+  updated_at             DateTime?
+  PurchaseOrderLineItems PurchaseOrderLineItems[]
 
   @@map("items")
 }
@@ -37,6 +38,7 @@ model PurchaseOrderLineItems {
   purchase_order    PurchaseOrders @relation(fields: [purchase_order_id], references: [id])
   purchase_order_id Int
   item_id           Int
+  item              Item           @relation(fields: [item_id], references: [id])
   quantity          Int
   unit_cost         Decimal
   created_at        DateTime?
