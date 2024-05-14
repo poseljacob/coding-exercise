@@ -43,6 +43,7 @@ export class PurchaseOrdersService {
         },
       });
 
+      // Publish an event to create the purchase order in ShipHero to adhere to SOLID principles
       this.eventBus.publish(
         new PurchaseOrderCreatedEvent(purchaseOrder.id, createInWMS)
       );
@@ -50,6 +51,7 @@ export class PurchaseOrdersService {
     } catch (error) {
       console.log(error);
       if (error instanceof PrismaClientKnownRequestError) {
+        // Duplicate entry error
         if (error.code === 'P2002') {
           throw new BadRequestException('Duplicate entry detected');
         }
@@ -79,6 +81,7 @@ export class PurchaseOrdersService {
       });
     } catch (error) {
       console.error('Error updating purchase order:', error);
+      // Records not found error
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
           throw new NotFoundException(`Purchase Order with ID ${id} not found`);
@@ -97,6 +100,7 @@ export class PurchaseOrdersService {
     } catch (error) {
       console.error('Error deleting purchase order:', error);
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        // Records not found error
         if (error.code === 'P2025') {
           throw new NotFoundException(`Purchase Order with ID ${id} not found`);
         }
@@ -133,6 +137,7 @@ export class PurchaseOrdersService {
     const skip = (page - 1) * limit;
 
     try {
+      // Fetch purchase orders with pagination
       const purchaseOrders = await this.prisma.purchaseOrders.findMany({
         skip,
         take: limit,
@@ -150,6 +155,7 @@ export class PurchaseOrdersService {
         };
       }
 
+      // Aggregate total quantity and unit cost for each purchase order in the database
       const totals = await this.prisma.purchaseOrderLineItems.groupBy({
         by: ['purchase_order_id'],
         _sum: {
@@ -163,6 +169,7 @@ export class PurchaseOrdersService {
         },
       });
 
+      // Combine purchase orders with totals
       const result: PurchaseOrderWithTotals[] = purchaseOrders.map((po) => {
         const total = totals.find((t) => t.purchase_order_id === po.id);
         return {
@@ -172,6 +179,7 @@ export class PurchaseOrdersService {
         };
       });
 
+      // Calculate pagination details
       const totalRecords = await this.prisma.purchaseOrders.count();
       const totalPages = Math.ceil(totalRecords / limit);
       const hasNextPage = page < totalPages;

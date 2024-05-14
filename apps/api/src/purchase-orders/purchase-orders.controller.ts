@@ -8,7 +8,6 @@ import {
   ParseIntPipe,
   Put,
   Delete,
-  DefaultValuePipe,
 } from '@nestjs/common';
 import { PurchaseOrdersService } from './purchase-orders.service';
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from './dto';
@@ -41,7 +40,6 @@ export class PurchaseOrdersController {
     @Query('page', ParseIntPipe) page: number,
     @Query('limit', ParseIntPipe) limit: number
   ) {
-    console.log('page', page, 'limit', limit);
     return this.purchaseOrdersService.findAll(page, limit);
   }
 

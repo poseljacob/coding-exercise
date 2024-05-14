@@ -6,7 +6,6 @@ import {
   IsArray,
   IsNumber,
   IsOptional,
-  IsDate,
   IsDecimal,
   IsBoolean,
 } from 'class-validator';
@@ -52,16 +51,16 @@ export class CreatePurchaseOrderDto extends PurchaseOrderDto {
 
 // Extended LineItem DTO for Update and Delete
 export class UpdateLineItemDto extends LineItemDto {
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   id?: number;
 
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   purchase_order_id?: number;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   action?: 'update' | 'delete' | 'new'; // Specify the action required
 }
 

@@ -8,7 +8,7 @@ import {
   Select,
   Button,
 } from '@mui/material';
-import { Item, PurchaseOrderLineItem } from '../types';
+import { Item, PurchaseOrderLineItem } from '../../types';
 
 interface LineItemProps {
   lineItem: PurchaseOrderLineItem;

@@ -1,5 +1,5 @@
-import { PurchaseOrder, ParentItem } from '../../types';
-import PurchaseOrderForm from '../../components/PurchaseOrderForm';
+import { ParentItem } from '../../types';
+import PurchaseOrderForm from '../../components/purchase-orders/PurchaseOrderForm';
 
 async function getItems(): Promise<ParentItem[]> {
   const response = await fetch(`http://localhost:3100/api/parent-items`, {

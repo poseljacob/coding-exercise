@@ -3,12 +3,6 @@ import { PurchaseOrdersService } from './purchase-orders.service';
 import { PrismaService } from '../prisma.service';
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from './dto';
 import { PurchaseOrders } from '@prisma/client';
-import {
-  BadRequestException,
-  NotFoundException,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { Decimal } from '@prisma/client/runtime';
 
 describe('PurchaseOrdersService', () => {

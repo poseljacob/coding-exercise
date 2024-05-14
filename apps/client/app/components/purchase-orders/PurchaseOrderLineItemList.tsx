@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import PurchaseOrderLineItemComponent from './PurchaseOrderLineComponent';
-import { Item, PurchaseOrderLineItem } from '../types';
+import { Item, PurchaseOrderLineItem } from '../../types';
 
 interface PurchaseOrderLineItemListProps {
   purchaseOrderLineItems: PurchaseOrderLineItem[];
@@ -30,7 +30,7 @@ const PurchaseOrderLineItemList: React.FC<PurchaseOrderLineItemListProps> = ({
       <Typography variant="h6" gutterBottom>
         Line Items
       </Typography>
-      {purchaseOrderLineItems.map(
+      {purchaseOrderLineItems?.map(
         (lineItem, index) =>
           lineItem.action !== 'delete' && (
             <PurchaseOrderLineItemComponent

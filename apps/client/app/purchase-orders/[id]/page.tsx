@@ -1,5 +1,5 @@
 import { PurchaseOrder, ParentItem } from '../../types';
-import PurchaseOrderForm from '../../components/PurchaseOrderForm';
+import PurchaseOrderForm from '../../components/purchase-orders/PurchaseOrderForm';
 
 // Fetches a single purchase order by ID
 async function getPurchaseOrder(id: string): Promise<PurchaseOrder> {

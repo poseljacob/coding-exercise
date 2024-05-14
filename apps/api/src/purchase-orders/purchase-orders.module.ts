@@ -1,4 +1,3 @@
-// purchase-orders.module.ts
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { PurchaseOrdersService } from './purchase-orders.service';

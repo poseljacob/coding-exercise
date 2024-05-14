@@ -12,21 +12,22 @@ import {
   Button,
 } from '@mui/material';
 
-import { PaginationButton } from './PaginationButton';
 import { useRouter } from 'next/navigation';
-import { PurchaseOrder } from '../types';
-import { formatDate } from '../utils';
+import { PurchaseOrder } from '../../types';
+import { formatDate } from '../../utils';
 
 interface DataTableProps {
   purchaseOrders: PurchaseOrder[];
   currentPage: number;
   hasNextPage: boolean;
+  totalPages: number;
 }
 // DataTable component that displays a table of purchase orders
 const DataTable = ({
   purchaseOrders,
   currentPage,
   hasNextPage,
+  totalPages,
 }: DataTableProps) => {
   const router = useRouter();
 
@@ -36,7 +37,6 @@ const DataTable = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell>Vendor</TableCell>
               <TableCell>Order Date</TableCell>
               <TableCell>Expected Delivery</TableCell>
@@ -50,19 +50,17 @@ const DataTable = ({
                 key={order.id}
                 onClick={() => router.push(`/purchase-orders/${order.id}`)}
               >
-                <TableCell>{order.id}</TableCell>
                 <TableCell>{order.vendor_name}</TableCell>
                 <TableCell>{formatDate(order.order_date)}</TableCell>
                 <TableCell>
                   {formatDate(order.expected_delivery_date)}
                 </TableCell>
                 <TableCell>{order.totalQuantity}</TableCell>
-                <TableCell>${order.totalUnitCost}</TableCell>
+                <TableCell>${order.totalUnitCost || 0}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        <PaginationButton page={currentPage} hasNextPage={hasNextPage} />
       </TableContainer>
     </div>
   );

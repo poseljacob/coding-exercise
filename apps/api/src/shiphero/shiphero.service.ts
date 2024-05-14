@@ -16,6 +16,10 @@ export class ShipheroService {
 
     // Call ShipHero API to create purchase order
     console.log('Creating purchase order in ShipHero:', purchaseOrder);
+
+    // Purchase order id from ShipHero response
+
+    // Update purchase order with ShipHero purchase order id
   }
 
   // Get purchase order by id

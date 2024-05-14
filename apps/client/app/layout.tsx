@@ -17,7 +17,7 @@ export default function RootLayout({
         <div className="container mx-auto">
           <div className="navbar bg-base-100 bg-accent-content/5 mt-2 mb-4 rounded-md">
             <Link
-              href="/purchase-orders"
+              href="/purchase-orders?page=1"
               prefetch={false}
               className="btn btn-ghost normal-case text-xl"
             >

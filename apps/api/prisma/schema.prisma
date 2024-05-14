@@ -15,8 +15,8 @@ model Item {
   sku                    String
   price                  Decimal
   quantity               Int
-  created_at             DateTime?
-  updated_at             DateTime?
+  created_at             DateTime? @default(now())
+  updated_at             DateTime? @updatedAt
   PurchaseOrderLineItems PurchaseOrderLineItems[]
 
   @@map("items")
@@ -25,8 +25,8 @@ model Item {
 model ParentItem {
   id         Int       @id @default(autoincrement())
   name       String
-  created_at DateTime?
-  updated_at DateTime?
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 
   items Item[]
 
@@ -41,8 +41,8 @@ model PurchaseOrderLineItems {
   item              Item           @relation(fields: [item_id], references: [id])
   quantity          Int
   unit_cost         Decimal
-  created_at        DateTime?
-  updated_at        DateTime?
+  created_at        DateTime? @default(now())
+  updated_at        DateTime? @updatedAt
 
   @@map("purchase_order_line_items")
 }
@@ -52,8 +52,8 @@ model PurchaseOrders {
   vendor_name            String
   order_date             DateTime
   expected_delivery_date DateTime
-  created_at             DateTime?
-  updated_at             DateTime?
+  created_at             DateTime? @default(now())
+  updated_at             DateTime? @updatedAt
 
   purchase_order_line_items PurchaseOrderLineItems[]
 
