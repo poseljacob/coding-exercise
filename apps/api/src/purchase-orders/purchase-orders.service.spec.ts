@@ -3,7 +3,9 @@ import { PurchaseOrdersService } from './purchase-orders.service';
 import { PrismaService } from '../prisma.service';
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from './dto';
 import { PurchaseOrders } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime';
+import { Decimal } from '@prisma/client/runtime/library';
+import { EventBus, CommandBus } from '@nestjs/cqrs';
+import { ModuleRef } from '@nestjs/core';
 
 describe('PurchaseOrdersService', () => {
   let service: PurchaseOrdersService;
@@ -27,11 +29,34 @@ describe('PurchaseOrdersService', () => {
     purchaseOrderLineItems: mockPurchaseOrderLineItems,
   };
 
+  const mockEventBus = {
+    publish: jest.fn(),
+  };
+
+  const mockCommandBus = {
+    execute: jest.fn(),
+  };
+
+  const mockModuleRef = {
+    get: jest.fn(),
+  };
+
+  const mockUnhandledExceptionBus = {
+    publish: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PurchaseOrdersService,
         { provide: PrismaService, useValue: mockPrismaService },
+        { provide: EventBus, useValue: mockEventBus },
+        { provide: CommandBus, useValue: mockCommandBus },
+        { provide: ModuleRef, useValue: mockModuleRef },
+        {
+          provide: 'UnhandledExceptionBus',
+          useValue: mockUnhandledExceptionBus,
+        },
       ],
     }).compile();
 
@@ -211,6 +236,9 @@ describe('PurchaseOrdersService', () => {
         expectedResult
       );
       expect(mockPurchaseOrders.findMany).toHaveBeenCalledWith({
+        orderBy: {
+          expected_delivery_date: 'asc',
+        },
         skip: 0,
         take: limit,
       });
