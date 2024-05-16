@@ -74,6 +74,7 @@ export const deleteLineItem = (
 ) => {
   const lineItem = purchaseOrder.purchase_order_line_items[index];
 
+  // remove it from the array if it's a new line item
   if (lineItem.action === 'new') {
     setPurchaseOrder((prev) => ({
       ...prev,

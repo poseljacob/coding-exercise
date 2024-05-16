@@ -6,6 +6,7 @@ import { PurchaseOrders } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 import { EventBus, CommandBus } from '@nestjs/cqrs';
 import { ModuleRef } from '@nestjs/core';
+import { OpenAIService } from '../openai/openai.service';
 
 describe('PurchaseOrdersService', () => {
   let service: PurchaseOrdersService;
@@ -45,6 +46,8 @@ describe('PurchaseOrdersService', () => {
     publish: jest.fn(),
   };
 
+  const mockOpenAIService = {};
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -53,6 +56,7 @@ describe('PurchaseOrdersService', () => {
         { provide: EventBus, useValue: mockEventBus },
         { provide: CommandBus, useValue: mockCommandBus },
         { provide: ModuleRef, useValue: mockModuleRef },
+        { provide: OpenAIService, useValue: mockOpenAIService },
         {
           provide: 'UnhandledExceptionBus',
           useValue: mockUnhandledExceptionBus,

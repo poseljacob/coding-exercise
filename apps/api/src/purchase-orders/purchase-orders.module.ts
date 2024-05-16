@@ -5,6 +5,7 @@ import { PurchaseOrdersController } from './purchase-orders.controller';
 import { PrismaService } from '../prisma.service';
 import { ShipheroService } from '../shiphero/shiphero.service';
 import { PurchaseOrderCreatedHandler } from '../events/handlers/purchase-order-created.handler';
+import { OpenAIService } from '../openai/openai.service';
 
 @Module({
   imports: [CqrsModule],
@@ -13,6 +14,7 @@ import { PurchaseOrderCreatedHandler } from '../events/handlers/purchase-order-c
     PrismaService,
     ShipheroService,
     PurchaseOrderCreatedHandler,
+    OpenAIService,
   ],
   controllers: [PurchaseOrdersController],
 })

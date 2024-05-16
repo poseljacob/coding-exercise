@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PurchaseOrdersController } from './purchase-orders.controller';
 import { PurchaseOrdersService } from './purchase-orders.service';
 import { CreatePurchaseOrderDto, UpdatePurchaseOrderDto } from './dto';
+import { OpenAIService } from '../openai/openai.service';
 
 describe('PurchaseOrdersController', () => {
   let controller: PurchaseOrdersController;
@@ -36,6 +37,10 @@ describe('PurchaseOrdersController', () => {
         {
           provide: PurchaseOrdersService,
           useValue: mockPurchaseOrdersService,
+        },
+        {
+          provide: OpenAIService,
+          useValue: {},
         },
       ],
     }).compile();

@@ -25,6 +25,7 @@ import {
   handleDelete,
   defaultOrder,
 } from '../../utils';
+import FileUpload from './FileUpload';
 
 interface PurchaseOrderFormProps {
   initialOrder?: PurchaseOrder;
@@ -54,6 +55,10 @@ const PurchaseOrderForm: React.FC<PurchaseOrderFormProps> = ({
     setSnackbar({ ...snackbar, open: false });
   };
 
+  const handleFileProcessed = (data: PurchaseOrder) => {
+    setPurchaseOrder(data);
+  };
+
   return (
     <Box sx={{ p: 2 }} component={Paper}>
       <Typography variant="h6" gutterBottom>
@@ -79,7 +84,6 @@ const PurchaseOrderForm: React.FC<PurchaseOrderFormProps> = ({
           label="Create In WMS"
         />
       )}
-
       <TextField
         label="Vendor Name"
         variant="outlined"
@@ -195,6 +199,8 @@ const PurchaseOrderForm: React.FC<PurchaseOrderFormProps> = ({
           </Button>
         )}
       </Box>
+      {isNewOrder && <FileUpload onFileProcessed={handleFileProcessed} />}
+
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}
